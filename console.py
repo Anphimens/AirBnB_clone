@@ -5,7 +5,7 @@ from models.base_model import BaseModel
 from models import storage
 
 
-class dHBNBCommand(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     """This is simple command interpreter of Antoinette and Eugenious"""
     prompt = "(hbnb) "
 
@@ -55,7 +55,7 @@ class dHBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance
         on the class name and id"""
         if not line:
-             print("** class name missing **")
+            print("** class name missing **")
             return
 
         argslist = line.split()
@@ -125,7 +125,7 @@ class dHBNBCommand(cmd.Cmd):
         """
         Updates an instance based on the class name and id 
         By adding or updating the attribute and saving
-        """
+        """        
         if not line:
             print("** class name missing **")
             return
@@ -137,10 +137,50 @@ class dHBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         if len(argslist) < 2:
-        print("** instance id missing **")
+            print("** instance id missing **")
             return
         id_name = argslist[1]
-        key = 
+        if len(argslist) < 3:
+            print("** attribute name missing **")
+            return
+        if len(argslist) < 4:
+            print("** value missing **")
+            return
+        key = f"{class_name}.{id_name}"
+        objects = storage.all()
+        obj = objects[key]
+        attr_name, attr_value = argslist([2][3])
+        try:
+            attr_value = eval(attr_value)
+        except Exception as e:
+            pass
+
+        setattr(obj, attr_name, attr_value)
+        obj.save()
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
