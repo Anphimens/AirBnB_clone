@@ -5,6 +5,12 @@
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.review import Review
 
 
 class FileStorage:
@@ -13,6 +19,11 @@ class FileStorage:
     __objects = {}
     __models = {
             "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Review": Review,
             }
 
     def all(self) -> dict:
@@ -44,7 +55,7 @@ class FileStorage:
                 try:
                     data = json.load(f)
                     for key, value in data.items():
-                        model_name = value["__class__"]
-                        self.__objects[key] = self.__models[model_name](**value)
+                        m_name = value["__class__"]
+                        self.__objects[key] = self.__models[m_name](**value)
                 except Exception as e:
                     print("JSON file could not be reloaded: ", e)
