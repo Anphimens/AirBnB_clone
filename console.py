@@ -26,7 +26,6 @@ class HBNBCommand(cmd.Cmd):
         "Review": Review,
     }
 
-
     def emptyline(self):
         """Prints a new line when the user enters the enter key"""
         pass
