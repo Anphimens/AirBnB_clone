@@ -5,11 +5,20 @@ from uuid import uuid4
 from datetime import datetime
 class BaseModel:
     """Sets the atributes for all dependencies """
-    def __init__(self) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """ Initialization of base model."""
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == '__class__':
+                    continue
+                if key in ["created_at", "updated_at"]:
+                    value = datetime.fromisoformat(value)
+
+                self.__dict__[key] = value
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
     
     
     def __str__(self) -> str:
