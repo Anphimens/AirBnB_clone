@@ -55,7 +55,7 @@ class dHBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance
         on the class name and id"""
         if not line:
-            print("** class name missing **")
+             print("** class name missing **")
             return
 
         argslist = line.split()
@@ -121,9 +121,29 @@ class dHBNBCommand(cmd.Cmd):
 
         print(all_instances)
 
+    def do_update(self, line):
+        """
+        Updates an instance based on the class name and id 
+        By adding or updating the attribute and saving
+        """
+        if not line:
+            print("** class name missing **")
+            return
+
+        argslist = line.split()
+        class_name = argslist[0]
+
+        if class_name not in self.__models:
+            print("** class doesn't exist **")
+            return
+        if len(argslist) < 2:
+        print("** instance id missing **")
+            return
+        id_name = argslist[1]
+        key = 
 
 
 
 
 if __name__ == '__main__':
-    dHBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()
