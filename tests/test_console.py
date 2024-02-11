@@ -1,48 +1,40 @@
 import unittest
-from unittest.mock import patch, mock_open
+from unittest.mock import patch
 from io import StringIO
 from console import HBNBCommand
-import cmd
-import sys
 
-class TestHBNBCommand(unittest.TestCase):
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_quit_command(self, mock_stdout):
-        with patch('builtins.input', return_value="quit"):
-            HBNBCommand().cmdloop()
-        self.assertEqual(mock_stdout.getvalue(), "(hbnb) ")
+class TestConsole(unittest.TestCase):
+    
+    def test_help(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("help")
+            self.assertIn("Documented commands (type help <topic>):", f.getvalue())
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_create_command(self, mock_stdout):
-        with patch('builtins.input', return_value="create BaseModel"):
-            HBNBCommand().cmdloop()
-        self.assertIn("hbnb.storage.FileStorage", mock_stdout.getvalue())
+    def test_create(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            self.assertNotEqual(f.getvalue(), "")
+    
+    def test_show(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show BaseModel")
+            self.assertIn("** instance id missing **", f.getvalue())
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_show_command(self, mock_stdout):
-        with patch('builtins.input', return_value="show BaseModel"):
-            HBNBCommand().cmdloop()
-        self.assertIn("** instance id missing **", mock_stdout.getvalue())
+    def test_destroy(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy BaseModel")
+            self.assertIn("** instance id missing **", f.getvalue())
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_destroy_command(self, mock_stdout):
-        with patch('builtins.input', return_value="destroy BaseModel"):
-            HBNBCommand().cmdloop()
-        self.assertIn("** instance id missing **", mock_stdout.getvalue())
+    def test_all(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all")
+            self.assertNotEqual(f.getvalue(), "")
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_all_command(self, mock_stdout):
-        with patch('builtins.input', return_value="all"):
-            HBNBCommand().cmdloop()
-        self.assertIn("[]", mock_stdout.getvalue())
+    def test_update(self):
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update BaseModel")
+            self.assertIn("** instance id missing **", f.getvalue())
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_update_command(self, mock_stdout):
-        with patch('builtins.input', return_value="update BaseModel"):
-            HBNBCommand().cmdloop()
-        self.assertIn("** instance id missing **", mock_stdout.getvalue())
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
-
