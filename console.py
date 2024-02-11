@@ -26,10 +26,10 @@ class HBNBCommand(cmd.Cmd):
         "Review": Review,
     }
 
-    def __init__(self):
-        """ Initializes the methods """
-        super().__init__()
-        self.class_name = None
+#    def __init__(self):
+#       """ Initializes the methods """
+#        super().__init__()
+#        self.class_name = None
 
     def emptyline(self):
         """Prints a new line when the user enters the enter key"""
