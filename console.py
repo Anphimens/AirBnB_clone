@@ -11,8 +11,13 @@ class HBNBCommand(cmd.Cmd):
     """This is simple command interpreter of Antoinette and Eugenious"""
     prompt = "(hbnb) "
     __models = {
-        "BaseModel": BaseModel
-        "User": User
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Review": Review,
     }
 
     def __init__(self):

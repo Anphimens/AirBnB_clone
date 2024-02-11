@@ -13,6 +13,11 @@ class FileStorage:
     __objects = {}
     __models = {
             "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Review": Review,
             }
 
     def all(self) -> dict:
