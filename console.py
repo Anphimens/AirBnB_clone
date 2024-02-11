@@ -12,6 +12,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __models = {
         "BaseModel": BaseModel
+        "User": User
     }
 
     def __init__(self):
@@ -163,10 +164,10 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attr_name, attr_value)
         obj.save()
 
-if __name__ == "__main__":
-    if not sys.stdin.isatty():
-        for line in sys.stdin:
-            HBNBCommand().onecmd(line.strip())
+#if __name__ == "__main__":
+#    if not sys.stdin.isatty():
+#        for line in sys.stdin:
+#            HBNBCommand().onecmd(line.strip())
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
