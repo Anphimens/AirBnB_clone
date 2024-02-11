@@ -2,6 +2,7 @@
 
 """ console.py"""
 import cmd
+import sys
 from models.base_model import BaseModel
 from models import storage
 
@@ -164,4 +165,8 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    if len(sys.argv) > 1:
+        command = " ".join(sys.argv[1:])
+        HBNBCommand().onecmd(command)
+    else:
+        HBNBCommand().cmdloop()
