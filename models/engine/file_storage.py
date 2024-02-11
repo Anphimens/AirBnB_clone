@@ -44,7 +44,7 @@ class FileStorage:
                 try:
                     data = json.load(f)
                     for key, value in data.items():
-                        model_name = value["__class__"]
-                        self.__objects[key] = self.__models[model_name](**value)
+                        m_name = value["__class__"]
+                        self.__objects[key] = self.__models[m_name](**value)
                 except Exception as e:
                     print("JSON file could not be reloaded: ", e)

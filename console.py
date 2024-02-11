@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# console.py
+
+""" console.py"""
 import cmd
 from models.base_model import BaseModel
 from models import storage
@@ -8,19 +9,14 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """This is simple command interpreter of Antoinette and Eugenious"""
     prompt = "(hbnb) "
-
-
     __models = {
-        
-        "BaseModel": BaseModel 
-
+        "BaseModel": BaseModel
     }
 
     def __init__(self):
         """ Initializes the methods """
         super().__init__()
         self.class_name = None
-
 
     def emptyline(self):
         """Prints a new line when the user enters the enter key"""
@@ -33,7 +29,7 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, line):
         """This function exits the cmd"""
         return True
-    
+
     def do_create(self, line):
         """This method create a new instance of the BaseModel:
         Saves it to the JSON file and the prints the id.
@@ -59,9 +55,9 @@ class HBNBCommand(cmd.Cmd):
             return
 
         argslist = line.split()
-        
+
         class_name = argslist[0]
-       
+
         if class_name not in self.__models:
             print("** class doesn't exist **")
             return
@@ -75,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
             print(objects[key])
 
         else:
-           print("** no instance found **")
+            print("** no instance found **")
 
     def do_destroy(self, line):
         """
@@ -104,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         """
-        Prints all string representation of all instances 
+        Prints all string representation of all instances
         based or not on the class name.
         """
         if line:
@@ -123,9 +119,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """
-        Updates an instance based on the class name and id 
+        Updates an instance based on the class name and id
         By adding or updating the attribute and saving
-        """        
+        """
         if not line:
             print("** class name missing **")
             return
@@ -149,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = f"{class_name}.{id_name}"
         objects = storage.all()
-        
+
         if key in objects:
             obj = objects[key]
         else:
@@ -165,32 +161,6 @@ class HBNBCommand(cmd.Cmd):
 
         setattr(obj, attr_name, attr_value)
         obj.save()
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

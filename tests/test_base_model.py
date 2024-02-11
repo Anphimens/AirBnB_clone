@@ -6,9 +6,10 @@ import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
 
-    def test_inititalization (self):
+    def test_inititalization(self):
         model = BaseModel()
         self.assertIsInstance(model.id, str)
         self.assertIsInstance(model.created_at, datetime)
@@ -29,7 +30,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_str_method(self):
         model = BaseModel()
-        str_rep = str(model)
+        str_rep = str(model)i
         expected_str = f"[BaseModel] ({model.id}) {model.__dict__}"
         self.assertEqual(str_rep, expected_str)
 
