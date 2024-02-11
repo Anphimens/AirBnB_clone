@@ -2,6 +2,7 @@
 # console.py
 import cmd
 from models.base_model import BaseModel
+from models import storage
 
 
 class dHBNBCommand(cmd.Cmd):
@@ -53,17 +54,74 @@ class dHBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """Prints the string representation of an instance
         on the class name and id"""
-        if not self.class_name:
+        if not line:
             print("** class name missing **")
             return
-        if self.class_name not in self.__models:
+
+        argslist = line.split()
+        
+        class_name = argslist[0]
+       
+        if class_name not in self.__models:
             print("** class doesn't exist **")
             return
-        if not line:
+        if len(argslist) < 2:
             print("** instance id missing **")
             return
-        class_name, class_id = line.split()
-        
+        id_name = argslist[1]
+        objects = storage.all()
+        key = f"{class_name}.{id_name}"
+        if key in objects:
+            print(objects[key])
+
+        else:
+           print("** no instance found **")
+
+    def do_destroy(self, line):
+        """
+        Deletes an instance based on the class name and id.
+        Changes is saved in JSON file
+        """
+        if not line:
+            print("** class name missing **")
+            return
+        argslist = line.split()
+        class_name = argslist[0]
+        if class_name not in self.__models:
+            print("** class doesn't exist **")
+            return
+        if len(argslist) < 2:
+            print("** instance id missing **")
+            return
+        id_name = argslist[1]
+        objects = storage.all()
+        key = f"{class_name}.{id_name}"
+        if key in objects:
+            del objects[key]
+            storage.save()
+        else:
+            print("** no instance found **")
+
+    def do_all(self, line):
+        """
+        Prints all string representation of all instances 
+        based or not on the class name.
+        """
+        if line:
+            class_name = line.split()[0]
+            if class_name not in self.__models:
+                print("** class doesn't exist **")
+                return
+            else:
+                pass
+        objects = storage.all()
+        all_instances = []
+        for obj in objects.values():
+            all_instances.append(str(obj))
+
+        print(all_instances)
+
+
 
 
 
