@@ -146,10 +146,18 @@ class HBNBCommand(cmd.Cmd):
         if len(argslist) < 4:
             print("** value missing **")
             return
+
         key = f"{class_name}.{id_name}"
         objects = storage.all()
-        obj = objects[key]
-        attr_name, attr_value = argslist([2][3])
+        
+        if key in objects:
+            obj = objects[key]
+        else:
+            print("** no instance found**")
+            return
+
+        attr_name = argslist[2]
+        attr_value = argslist[3]
         try:
             attr_value = eval(attr_value)
         except Exception as e:
